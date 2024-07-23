@@ -16,8 +16,8 @@ from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense
 
 dataset = pd.read_csv("./InSDN/mergedCSV.csv")
 
-X = dataset.drop('Label', axis=1)
-Y = dataset['Label']
+X = dataset.drop("Label", axis=1)
+Y = dataset["Label"]
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
 
@@ -34,19 +34,19 @@ X_test_shaped = X_test_scaled.reshape((X_test_scaled.shape[0], 1, X_test_scaled.
 
 def model_build(input_shape):
     model = Sequential()
-    model.add(Conv1D(filters=64, kernel_size=3, activation='relu', padding='same', input_shape=(input_shape)))
+    model.add(Conv1D(filters=64, kernel_size=3, activation="relu", padding="same", input_shape=(input_shape)))
     model.add(MaxPooling1D(pool_size=1))
 
-    model.add(Conv1D(filters=128, kernel_size=3, activation='relu', padding='same'))
+    model.add(Conv1D(filters=128, kernel_size=3, activation="relu", padding="same"))
     model.add(MaxPooling1D(pool_size=1))
 
-    model.add(Conv1D(filters=256, kernel_size=3, activation='relu', padding='same'))
+    model.add(Conv1D(filters=256, kernel_size=3, activation="relu", padding="same"))
     model.add(MaxPooling1D(pool_size=1))
 
     model.add(Flatten())
 
-    model.add(Dense(128, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))
+    model.add(Dense(128, activation="relu"))
+    model.add(Dense(1, activation="sigmoid"))
 
     return model
 
@@ -57,7 +57,7 @@ input_shape = (1, X_train_scaled.shape[1],)
 
 cnn_model = model_build(input_shape)
 
-cnn_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy','recall', 'precision', 'f1_score'])
+cnn_model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy","recall", "precision", "f1_score"])
 
 # create callback
 
