@@ -21,7 +21,7 @@ X_test_scaled = min_max_scaler.transform(X_test)
 
 # fit to classifier
 
-classifier = RandomForestClassifier()
+classifier = RandomForestClassifier(n_estimators=200)
 start = time.time()
 classifier.fit(X_train_scaled, Y_train)
 stop = time.time()
@@ -48,7 +48,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./ML/RandomForest/metrics.json", "w") as json_file:
+with open("./ML/RandomForest/optimizedMetrics.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")

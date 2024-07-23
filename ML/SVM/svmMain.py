@@ -23,7 +23,7 @@ X_test_scaled = min_max_scaler.transform(X_test)
 
 # fit to classifier
 
-classifier = svm.SVC(kernel="linear")
+classifier = svm.LinearSVC(dual=False)
 start = time.time()
 classifier.fit(X_train_scaled, Y_train)
 stop = time.time()
@@ -50,7 +50,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./ML/SVM/metrics.json", "w") as json_file:
+with open("./ML/SVM/linearSVCMetrics.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")
