@@ -1,14 +1,14 @@
 import pandas as pd
-import time
 import json
 
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 
 import tensorflow as tf
-from keras.callbacks import Callback
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+
+from Helpers.callbacks import training_time_callback
 
 dataset = pd.read_csv("./InSDN/mergedCSV.csv")
 
@@ -23,18 +23,7 @@ min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
 X_train_scaled = min_max_scaler.fit_transform(X_train)
 X_test_scaled = min_max_scaler.transform(X_test)
 
-# create custom training time callback metric
-
-class training_time_callback(Callback):
-    def on_train_begin(self, logs={}):
-        self.times = []
-
-    def on_epoch_begin(self, epoch, logs={}):
-        self.epoch_start_time = time.time()
-
-    def on_epoch_end(self, epoch, logs={}):
-        self.times.append(time.time() - self.epoch_start_time)
-
+# callback taken from callback file
 cb = training_time_callback()
 
 # build model using dense layers (4 layer)
