@@ -34,14 +34,14 @@ X_test_shaped = X_test_scaled.reshape((X_test_scaled.shape[0], 1, X_test_scaled.
 
 def model_build(input_shape):
     model = Sequential()
-    model.add(Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=(input_shape)))
-    model.add(MaxPooling1D(pool_size=2))
+    model.add(Conv1D(filters=64, kernel_size=3, activation='relu', padding='same', input_shape=(input_shape)))
+    model.add(MaxPooling1D(pool_size=1))
 
-    model.add(Conv1D(filters=128, kernel_size=3, activation='relu'))
-    model.add(MaxPooling1D(pool_size=2))
+    model.add(Conv1D(filters=128, kernel_size=3, activation='relu', padding='same'))
+    model.add(MaxPooling1D(pool_size=1))
 
-    model.add(Conv1D(filters=256, kernel_size=3, activation='relu'))
-    model.add(MaxPooling1D(pool_size=2))
+    model.add(Conv1D(filters=256, kernel_size=3, activation='relu', padding='same'))
+    model.add(MaxPooling1D(pool_size=1))
 
     model.add(Flatten())
 
