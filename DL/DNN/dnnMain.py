@@ -12,8 +12,8 @@ from Helpers.callbacks import training_time_callback
 
 dataset = pd.read_csv("./InSDN/mergedCSV.csv")
 
-X = dataset.drop('Label', axis=1)
-Y = dataset['Label']
+X = dataset.drop("Label", axis=1)
+Y = dataset["Label"]
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
 
@@ -33,9 +33,9 @@ def model_build(input_shape):
 
     model.add(Dense(64, activation="relu", input_shape=input_shape))
     model.add(Dense(32, activation="relu"))
-    model.add(Dense(16, activation='relu'))
-    model.add(Dense(8, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))
+    model.add(Dense(16, activation="relu"))
+    model.add(Dense(8, activation="relu"))
+    model.add(Dense(1, activation="sigmoid"))
 
     return model
 
@@ -44,7 +44,7 @@ dnn_model = model_build(input_shape)
 
 # compile  model
 
-dnn_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy','recall', 'precision', 'f1_score'])
+dnn_model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy","recall", "precision", "f1_score"])
 
 # train model
 dnn_model.fit(x=X_train_scaled, y=Y_train, epochs=10, validation_data=(X_test_scaled, Y_test), callbacks=[cb])
