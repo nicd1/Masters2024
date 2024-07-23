@@ -48,14 +48,6 @@ def model_build(input_shape):
     return model
 
 # re-shape data for cnn
-
-flow_durations_list = dataset.loc[:, "Flow Duration"].tolist()
-flow_durations = np.array(flow_durations_list)
-
-# flow durations are in microseconds, convert to seconds
-flow_durations_seconds = np.array(flow_durations) / 1000000
-average_flow_duration_seconds = np.mean(flow_durations_seconds)
-sampling_rate = 1 / average_flow_duration_seconds
 input_shape = (X_train_scaled.shape[1],)
 
 # compile model
