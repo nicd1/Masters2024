@@ -4,7 +4,7 @@ import json
 from sklearn import preprocessing
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
-from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.model_selection import train_test_split
 
 dataset = pd.read_csv("./InSDN/mergedCSV.csv")
 
@@ -21,7 +21,7 @@ X_test_scaled = min_max_scaler.transform(X_test)
 
 # fit to classifier
 
-classifier = RandomForestClassifier(n_estimators=200)
+classifier = RandomForestClassifier()
 start = time.time()
 classifier.fit(X_train_scaled, Y_train)
 stop = time.time()
@@ -36,15 +36,6 @@ precision = metrics.precision_score(Y_test, predictions)
 f1_score = metrics.f1_score(Y_test, predictions)
 training_time = stop - start
 
-# checking for overfitting with train dataset
-
-training_predictions = classifier.predict(X_train_scaled)
-train_accuracy = metrics.accuracy_score(Y_train, training_predictions)
-
-# cross validation
-
-cross_val = cross_val_score(classifier, X_train_scaled, Y_train, cv=5)
-
 # write metrics to obj
 
 metrics_obj = {
@@ -57,10 +48,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./ML/RandomForest/optimizedMetrics.json", "w") as json_file:
+with open("./ML/RandomForest/metrics.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")
-print("Training accuracy:", train_accuracy, "Testing accuracy:", accuracy)
-print(f'Cross-validation scores: {cross_val}')
-print(f'Mean CV Score: {cross_val.mean()}')
