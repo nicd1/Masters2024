@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+import time
 
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
@@ -8,7 +9,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
-from Helpers.callbacks import training_time_callback
+from keras.callbacks import Callback, EarlyStopping
 
 dataset = pd.read_csv("./InSDN/mergedCSV.csv")
 
@@ -22,6 +23,28 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_
 min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
 X_train_scaled = min_max_scaler.fit_transform(X_train)
 X_test_scaled = min_max_scaler.transform(X_test)
+
+# create callback
+
+class training_time_callback(Callback):
+    def on_train_begin(self, logs={}):
+        self.times = []
+
+    def on_epoch_begin(self, epoch, logs={}):
+        self.epoch_start_time = time.time()
+
+    def on_epoch_end(self, epoch, logs={}):
+        self.times.append(time.time() - self.epoch_start_time)
+
+# add early stopping callback
+
+early_stopping = EarlyStopping(
+    monitor='val_loss',
+    patience=3,
+    verbose=1,
+    restore_best_weights=True,
+    start_from_epoch=3
+)
 
 # callback taken from callback file
 cb = training_time_callback()
@@ -47,7 +70,7 @@ dnn_model = model_build(input_shape)
 dnn_model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy","recall", "precision", "f1_score"])
 
 # train model
-dnn_model.fit(x=X_train_scaled, y=Y_train, epochs=10, validation_data=(X_test_scaled, Y_test), callbacks=[cb])
+dnn_model.fit(x=X_train_scaled, y=Y_train, epochs=30, validation_data=(X_test_scaled, Y_test), callbacks=[cb, early_stopping])
 
 ## evaluate model & return metrics
 
@@ -62,10 +85,9 @@ metrics_obj = {
     "Training Time": training_time
 }
 
-
 # write metrics to file
 
-with open("./DL/DNN/metrics.json", "w") as json_file:
+with open("./DL/DNN/metricsWithEarlyStopping.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")

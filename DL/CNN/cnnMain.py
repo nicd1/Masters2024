@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 
 import time
-from keras.callbacks import Callback
+from keras.callbacks import Callback, EarlyStopping
 
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
@@ -71,10 +71,20 @@ class training_time_callback(Callback):
     def on_epoch_end(self, epoch, logs={}):
         self.times.append(time.time() - self.epoch_start_time)
 
+# add early stopping callback
+
+early_stopping = EarlyStopping(
+    monitor='val_loss',
+    patience=3,
+    verbose=1,
+    restore_best_weights=True,
+    start_from_epoch=3
+)
+
 # train model
 
 cb = training_time_callback()
-cnn_model.fit(x=X_train_shaped, y=Y_train, epochs=10, validation_data=(X_test_shaped, Y_test), callbacks=[cb])
+cnn_model.fit(x=X_train_shaped, y=Y_train, epochs=10, validation_data=(X_test_shaped, Y_test), callbacks=[cb, early_stopping])
 
 
 loss, accuracy, recall, precision, f1_score = cnn_model.evaluate(X_test_shaped, Y_test)
@@ -90,7 +100,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./DL/CNN/metrics.json", "w") as json_file:
+with open("./DL/CNN/metricsWithEarlyStopping.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")
