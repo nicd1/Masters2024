@@ -104,6 +104,6 @@ values_times = list(training_times.values())
 x_times = list(training_times.keys())
 y_times = [round(value, 2) for value in values_times]
 
-create_simple_bar_graph(x=x_times, y=y_times, value_labels=True, colour="Blue", title="Training Times", save_path="Metrics/Graphs/pngs/trainingTimesMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_times, y=y_times, value_labels=True, colour="Blue", title="Training Times (seconds)", save_path="Metrics/Graphs/pngs/trainingTimesMetrics.png", dpi=400)
 
 
