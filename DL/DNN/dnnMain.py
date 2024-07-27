@@ -93,7 +93,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./DL/DNN/metricsWithDropout.json", "w") as json_file:
+with open("./DL/DNN/metricsWithDropoutSeveralLayers.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")
