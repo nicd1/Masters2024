@@ -10,7 +10,7 @@ from keras.callbacks import Callback, EarlyStopping
 
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense
+from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense, Dropout
 
 # from callbacks import training_time_callback
 
@@ -36,12 +36,18 @@ def model_build(input_shape):
     model = Sequential()
     model.add(Conv1D(filters=64, kernel_size=3, activation="relu", padding="same", input_shape=(input_shape)))
     model.add(MaxPooling1D(pool_size=1))
+    model.add(Dropout(0,5))
+
 
     model.add(Conv1D(filters=128, kernel_size=3, activation="relu", padding="same"))
     model.add(MaxPooling1D(pool_size=1))
+    model.add(Dropout(0,5))
+
 
     model.add(Conv1D(filters=256, kernel_size=3, activation="relu", padding="same"))
     model.add(MaxPooling1D(pool_size=1))
+    model.add(Dropout(0,5))
+
 
     model.add(Flatten())
 
@@ -75,7 +81,7 @@ class training_time_callback(Callback):
 
 early_stopping = EarlyStopping(
     monitor='val_loss',
-    patience=3,
+    patience=5,
     verbose=1,
     restore_best_weights=True,
     start_from_epoch=3
@@ -84,7 +90,7 @@ early_stopping = EarlyStopping(
 # train model
 
 cb = training_time_callback()
-cnn_model.fit(x=X_train_shaped, y=Y_train, epochs=10, validation_data=(X_test_shaped, Y_test), callbacks=[cb, early_stopping])
+cnn_model.fit(x=X_train_shaped, y=Y_train, epochs=30, validation_data=(X_test_shaped, Y_test), callbacks=[cb, early_stopping])
 
 
 loss, accuracy, recall, precision, f1_score = cnn_model.evaluate(X_test_shaped, Y_test)
@@ -100,7 +106,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./DL/CNN/metricsWithEarlyStopping.json", "w") as json_file:
+with open("./DL/CNN/optimizedMetrics.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")
