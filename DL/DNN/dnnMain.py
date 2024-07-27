@@ -7,7 +7,7 @@ from sklearn import preprocessing
 
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dense, Dropout
 
 from keras.callbacks import Callback, EarlyStopping
 # from keras.utils import plot_model
@@ -56,10 +56,14 @@ def model_build(input_shape):
     model = Sequential()
 
     model.add(Dense(128, activation="relu", input_shape=input_shape))
+    model.add(Dropout(0,5))
     model.add(Dense(64, activation="relu"))
-    model.add(Dense(32, activation="relu"))
-    model.add(Dense(16, activation="relu"))
-    model.add(Dense(8, activation="relu"))
+    model.add(Dropout(0,5))
+    model.add(Dense(64, activation="relu"))
+    model.add(Dropout(0,5))
+    # model.add(Dense(32, activation="relu"))
+    # model.add(Dense(16, activation="relu"))
+    # model.add(Dense(8, activation="relu"))
     model.add(Dense(1, activation="sigmoid"))
 
     return model
@@ -89,7 +93,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./DL/DNN/optimizedMetrics.json", "w") as json_file:
+with open("./DL/DNN/metricsWithDropout.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")
