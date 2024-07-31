@@ -57,7 +57,7 @@ create_simple_bar_graph(x=x_rf, y=y_rf, value_labels=True, colour="Red", title="
 
 # DNN
 
-with open("DL/DNN/metrics.json", 'r') as file:
+with open("DL/DNN/metricsWithDropout.json", 'r') as file:
     dnn_data = json.load(file)
 
 # removing training time from json
