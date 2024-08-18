@@ -61,9 +61,7 @@ def model_build(input_shape):
     model.add(Dropout(0,5))
     model.add(Dense(64, activation="relu"))
     model.add(Dropout(0,5))
-    # model.add(Dense(32, activation="relu"))
-    # model.add(Dense(16, activation="relu"))
-    # model.add(Dense(8, activation="relu"))
+
     model.add(Dense(1, activation="sigmoid"))
 
     return model
