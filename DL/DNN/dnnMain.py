@@ -59,7 +59,7 @@ def model_build(input_shape):
     model.add(Dropout(0,5))
     model.add(Dense(64, activation="relu"))
     model.add(Dropout(0,5))
-    model.add(Dense(64, activation="relu"))
+    model.add(Dense(32, activation="relu"))
     model.add(Dropout(0,5))
 
     model.add(Dense(1, activation="sigmoid"))
@@ -91,7 +91,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./DL/DNN/metricsWithDropoutSeveralLayers.json", "w") as json_file:
+with open("./DL/DNN/metricsWithDropout.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")

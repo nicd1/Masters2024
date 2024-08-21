@@ -5,9 +5,9 @@ import json
 import matplotlib.pyplot as plt
 
 from sklearn import preprocessing
-from sklearn import svm
+from sklearn.svm import SVC
 from sklearn import metrics
-from sklearn.model_selection import cross_val_score ,train_test_split
+from sklearn.model_selection import GridSearchCV, cross_val_score ,train_test_split
 
 # import dataset & split into training & test
 
@@ -26,7 +26,22 @@ X_test_scaled = min_max_scaler.transform(X_test)
 
 # fit to classifier
 
-classifier = svm.LinearSVC(dual=False)
+classifier = SVC(kernel="poly", C=0.1, gamma=0.1)
+
+# find optimal parameters for svc
+
+# param_grid = {
+#     'C': [0.1, 1, 10],
+#     'gamma': [0.01, 0.1, 1]
+# }
+
+# grid_search = GridSearchCV(classifier, param_grid, cv=3, verbose=2, n_jobs=-1)
+# grid_search.fit(X_train, Y_train)
+
+# best_params = grid_search.best_params_
+# print(f"Best parameters: {best_params}") # optimal params are C=0.1 and gamma=0.1
+
+
 start = time.time()
 classifier.fit(X_train_scaled, Y_train)
 stop = time.time()
@@ -62,13 +77,13 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./ML/SVM/linearSVCMetrics.json", "w") as json_file:
+with open("./ML/SVM/SVCPolyKernelMetrics.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")
 print("Training accuracy:", train_accuracy, "Testing accuracy:", accuracy)
-print(support_vectors)
-print(support_vectors_per_class)
+# print(support_vectors)
+# print(support_vectors_per_class)
 
 print(f'Cross-validation scores: {cross_val}')
 print(f'Mean CV Score: {cross_val.mean()}')
