@@ -36,7 +36,7 @@ values_lk = list(linear_kernel_data.values())
 x_lk = list(linear_kernel_data.keys())
 y_lk = [round (value * 100, 4) for value in values_lk]
 
-create_simple_bar_graph(x=x_lk, y=y_lk, value_labels=True, colour="Red", title="Linear Kernel SVM Metrics", save_path="Metrics/Graphs/pngs/linearKernelSVMMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_lk, y=y_lk, value_labels=True, colour="Red", title="Linear Kernel SVM Metrics (Model A)", save_path="Metrics/Graphs/pngs/linearKernelSVMMetrics.png", dpi=400)
 
 # Poly Kernel SVM
 
