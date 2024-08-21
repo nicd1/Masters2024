@@ -172,7 +172,7 @@ values_cnn = list(cnn_data.values())
 x_cnn = list(cnn_data.keys())
 y_cnn = [round (value * 100, 4) for value in values_cnn]
 
-create_simple_bar_graph(x=x_cnn, y=y_cnn, value_labels=True, colour="Red", title="CNN With Dropout Metrics (Model L)", save_path="Metrics/Graphs/pngs/cnnMetricsWithDropout.png", dpi=400)
+create_simple_bar_graph(x=x_cnn, y=y_cnn, value_labels=True, colour="Red", title="CNN With Dropout and Early Stopping Metrics (Model L)", save_path="Metrics/Graphs/pngs/cnnMetricsWithDropout.png", dpi=400)
 
 # optimised CNN
 
