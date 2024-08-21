@@ -87,7 +87,7 @@ values_rf = list(rf_data.values())
 x_rf = list(rf_data.keys())
 y_rf = [round (value * 100, 4) for value in values_rf]
 
-create_simple_bar_graph(x=x_rf, y=y_rf, value_labels=True, colour="Red", title="Random Forest Metrics (Model F)", save_path="Metrics/Graphs/pngs/rfMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_rf, y=y_rf, value_labels=True, colour="Red", title="Increased Forest No. RF Metrics (Model F)", save_path="Metrics/Graphs/pngs/rfMetrics.png", dpi=400)
 
 # Random Forest Pre-Optimised
 
@@ -104,7 +104,7 @@ pre_optimised_values_rf = list(pre_optimised_rf_data.values())
 x_preop_rf = list(pre_optimised_rf_data.keys())
 y_preop_rf = [round (value * 100, 4) for value in pre_optimised_values_rf]
 
-create_simple_bar_graph(x=x_preop_rf, y=y_preop_rf, value_labels=True, colour="Red", title="Increased Forest No. Random Forest Metrics (Model E)", save_path="Metrics/Graphs/pngs/preOptimisedRfMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_preop_rf, y=y_preop_rf, value_labels=True, colour="Red", title="Pre-Optimised Forest No. Random Forest Metrics (Model E)", save_path="Metrics/Graphs/pngs/preOptimisedRfMetrics.png", dpi=400)
 
 # DNN
 
