@@ -7,7 +7,7 @@ import json
 from sklearn import preprocessing
 from sklearn.svm import SVC
 from sklearn import metrics
-from sklearn.model_selection import cross_val_score ,train_test_split
+from sklearn.model_selection import GridSearchCV, cross_val_score ,train_test_split
 
 # import dataset & split into training & test
 
@@ -26,52 +26,65 @@ X_test_scaled = min_max_scaler.transform(X_test)
 
 # fit to classifier
 
-classifier = SVC(kernel="rbf", C=0.1, gamma=0.1)
+classifier = SVC(kernel="rbf")
+
+# # find optimal parameters for svc
+
+# start = time.time()
+# classifier.fit(X_train_scaled, Y_train)
+# stop = time.time()
+
+# #predictions using metrics
+
+# predictions = classifier.predict(X_test_scaled)
+
+# accuracy = metrics.accuracy_score(Y_test, predictions)
+# recall = metrics.recall_score(Y_test, predictions)
+# precision = metrics.precision_score(Y_test, predictions)
+# f1_score = metrics.f1_score(Y_test, predictions)
+# training_time = stop - start
+
+# # checking for overfitting with train dataset
+
+# training_predictions = classifier.predict(X_train_scaled)
+# train_accuracy = metrics.accuracy_score(Y_train, training_predictions)
+
+# # cross validation
+
+# cross_val = cross_val_score(classifier, X_train_scaled, Y_train, cv=5)
+
+# # write metrics to obj
+
+# metrics_obj = {
+#     "Accuracy": accuracy,
+#     "Recall": recall,
+#     "Precision": precision,
+#     "F1 Score": f1_score,
+#     "Training Time": training_time
+# }
+
+# # write metrics to file
+
+# with open("./ML/SVM/SVCRbfKernelMetrics.json", "w") as json_file:
+#     json.dump(metrics_obj, json_file, indent=4)
+
+# print("Metrics written to file in folder")
+# print("Training accuracy:", train_accuracy, "Testing accuracy:", accuracy)
+# # print(support_vectors)
+# # print(support_vectors_per_class)
+
+# print(f'Cross-validation scores: {cross_val}')
+# print(f'Mean CV Score: {cross_val.mean()}')
 
 # find optimal parameters for svc
 
-start = time.time()
-classifier.fit(X_train_scaled, Y_train)
-stop = time.time()
-
-#predictions using metrics
-
-predictions = classifier.predict(X_test_scaled)
-
-accuracy = metrics.accuracy_score(Y_test, predictions)
-recall = metrics.recall_score(Y_test, predictions)
-precision = metrics.precision_score(Y_test, predictions)
-f1_score = metrics.f1_score(Y_test, predictions)
-training_time = stop - start
-
-# checking for overfitting with train dataset
-
-training_predictions = classifier.predict(X_train_scaled)
-train_accuracy = metrics.accuracy_score(Y_train, training_predictions)
-
-# cross validation
-
-cross_val = cross_val_score(classifier, X_train_scaled, Y_train, cv=5)
-
-# write metrics to obj
-
-metrics_obj = {
-    "Accuracy": accuracy,
-    "Recall": recall,
-    "Precision": precision,
-    "F1 Score": f1_score,
-    "Training Time": training_time
+param_grid = {
+    'C': [0.1, 1, 10],
+    'gamma': [0.01, 0.1, 1]
 }
 
-# write metrics to file
+grid_search = GridSearchCV(classifier, param_grid, cv=3, verbose=2, n_jobs=-1)
+grid_search.fit(X_train, Y_train)
 
-with open("./ML/SVM/SVCRbfKernelMetrics.json", "w") as json_file:
-    json.dump(metrics_obj, json_file, indent=4)
-
-print("Metrics written to file in folder")
-print("Training accuracy:", train_accuracy, "Testing accuracy:", accuracy)
-# print(support_vectors)
-# print(support_vectors_per_class)
-
-print(f'Cross-validation scores: {cross_val}')
-print(f'Mean CV Score: {cross_val.mean()}')
+best_params = grid_search.best_params_
+print(f"Best parameters: {best_params}") # optimal params are C=0.1 and gamma=0.1

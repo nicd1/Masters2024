@@ -36,17 +36,17 @@ def model_build(input_shape):
     model = Sequential()
     model.add(Conv1D(filters=64, kernel_size=3, activation="relu", padding="same", input_shape=(input_shape)))
     model.add(MaxPooling1D(pool_size=1))
-    model.add(Dropout(0,3))
+    model.add(Dropout(0.3))
 
 
     model.add(Conv1D(filters=128, kernel_size=3, activation="relu", padding="same"))
     model.add(MaxPooling1D(pool_size=1))
-    model.add(Dropout(0,3))
+    model.add(Dropout(0.3))
 
 
     model.add(Conv1D(filters=256, kernel_size=3, activation="relu", padding="same"))
     model.add(MaxPooling1D(pool_size=1))
-    model.add(Dropout(0,3))
+    model.add(Dropout(0.3))
 
 
     model.add(Flatten())
@@ -106,7 +106,7 @@ metrics_obj = {
 
 # write metrics to file
 
-with open("./DL/CNN/optimizedMetricsWithDropout.json", "w") as json_file:
+with open("./DL/CNN/optimizedMetricsWithDropoutAndEarlyStopping2.json", "w") as json_file:
     json.dump(metrics_obj, json_file, indent=4)
 
 print("Metrics written to file in folder")
