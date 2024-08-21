@@ -53,7 +53,7 @@ values_pk = list(poly_kernel_data.values())
 x_pk = list(poly_kernel_data.keys())
 y_pk = [round (value * 100, 4) for value in values_pk]
 
-create_simple_bar_graph(x=x_lk, y=y_lk, value_labels=True, colour="Red", title="Polynomial SVM Kernel (Model C)", save_path="Metrics/Graphs/pngs/SVCPolyKernelMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_pk, y=y_pk, value_labels=True, colour="Red", title="Polynomial SVM Kernel (Model C)", save_path="Metrics/Graphs/pngs/SVCPolyKernelMetrics.png", dpi=400)
 
 # RBF  Kernel SVM
 
