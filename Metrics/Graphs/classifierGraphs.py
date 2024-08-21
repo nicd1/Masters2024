@@ -123,7 +123,7 @@ y_dnn = [round (value * 100, 4) for value in values_dnn]
 
 create_simple_bar_graph(x=x_dnn, y=y_dnn, value_labels=True, colour="Red", title="DNN Metrics With Dropout and Early Stopping (Model H)", save_path="Metrics/Graphs/pngs/dnnMetrics.png", dpi=400)
 
-# pre-optimised DNN
+# optimised DNN
 
 with open("DL/DNN/optimizedMetrics.json", 'r') as file:
     pre_optimised_dnn_data = json.load(file)
@@ -138,7 +138,7 @@ pre_optimised_values_dnn = list(pre_optimised_dnn_data.values())
 x_preop_dnn = list(pre_optimised_dnn_data.keys())
 y_preop_dnn = [round (value * 100, 4) for value in pre_optimised_values_dnn]
 
-create_simple_bar_graph(x=x_preop_dnn, y=y_preop_dnn, value_labels=True, colour="Red", title="Pre-Optimised DNN Metrics (Model G)", save_path="Metrics/Graphs/pngs/preOptimisedDnnMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_preop_dnn, y=y_preop_dnn, value_labels=True, colour="Red", title="Optimised DNN Metrics (Model G)", save_path="Metrics/Graphs/pngs/optimisedDnnMetrics.png", dpi=400)
 
 # dnn with early stopping, dropout, and extra layers
 
@@ -174,7 +174,7 @@ y_cnn = [round (value * 100, 4) for value in values_cnn]
 
 create_simple_bar_graph(x=x_cnn, y=y_cnn, value_labels=True, colour="Red", title="CNN With Dropout Metrics (Model L)", save_path="Metrics/Graphs/pngs/cnnMetricsWithDropout.png", dpi=400)
 
-# pre optimised CNN
+# optimised CNN
 
 with open("DL/CNN/optimizedMetrics.json", 'r') as file:
     pre_optimised_cnn_data = json.load(file)
@@ -189,7 +189,7 @@ pre_optimised_values_cnn = list(pre_optimised_cnn_data.values())
 x_preop_cnn = list(pre_optimised_cnn_data.keys())
 y_preop_cnn = [round (value * 100, 4) for value in pre_optimised_values_cnn]
 
-create_simple_bar_graph(x=x_preop_cnn, y=y_preop_cnn, value_labels=True, colour="Red", title="Pre-Optimised CNN Metrics (Model J)", save_path="Metrics/Graphs/pngs/preOptimisedCnnMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_preop_cnn, y=y_preop_cnn, value_labels=True, colour="Red", title="Optimised CNN Metrics (Model J)", save_path="Metrics/Graphs/pngs/optimisedCnnMetrics.png", dpi=400)
 
 # CNN with early stopping
 
