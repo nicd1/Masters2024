@@ -50,7 +50,7 @@ X_test_scaled = min_max_scaler.transform(X_test)
 
 # fit to classifier
 
-classifier = RandomForestClassifier()
+classifier = RandomForestClassifier(n_estimators=200)
 start = time.time()
 classifier.fit(X_train_scaled, Y_train)
 stop = time.time()
