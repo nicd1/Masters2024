@@ -22,3 +22,6 @@ create_grouped_bar_graph(
     save_path="Metrics/Graphs/pngs/cumulatedMetrics.png", 
     dpi=800
     )
+
+## SVM
+

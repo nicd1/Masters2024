@@ -67,8 +67,7 @@ with open("./ML/SVM/linearSVCMetrics.json", "w") as json_file:
 
 print("Metrics written to file in folder")
 print("Training accuracy:", train_accuracy, "Testing accuracy:", accuracy)
-print(support_vectors)
-print(support_vectors_per_class)
+
 
 print(f'Cross-validation scores: {cross_val}')
 print(f'Mean CV Score: {cross_val.mean()}')

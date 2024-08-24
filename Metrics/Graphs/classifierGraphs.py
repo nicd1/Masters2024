@@ -87,7 +87,7 @@ values_rf = list(rf_data.values())
 x_rf = list(rf_data.keys())
 y_rf = [round (value * 100, 4) for value in values_rf]
 
-create_simple_bar_graph(x=x_rf, y=y_rf, value_labels=True, colour="Red", title="Increased Forest No. RF Metrics (Model F)", save_path="Metrics/Graphs/pngs/rfMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_rf, y=y_rf, value_labels=True, colour="Red", title="Random Forest Metrics where n=200 (Model F)", save_path="Metrics/Graphs/pngs/rfMetrics.png", dpi=400)
 
 # Random Forest Pre-Optimised
 
@@ -104,11 +104,11 @@ pre_optimised_values_rf = list(pre_optimised_rf_data.values())
 x_preop_rf = list(pre_optimised_rf_data.keys())
 y_preop_rf = [round (value * 100, 4) for value in pre_optimised_values_rf]
 
-create_simple_bar_graph(x=x_preop_rf, y=y_preop_rf, value_labels=True, colour="Red", title="Pre-Optimised Random Forest Metrics (Model E)", save_path="Metrics/Graphs/pngs/preOptimisedRfMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_preop_rf, y=y_preop_rf, value_labels=True, colour="Red", title="Random Forest Metrics where  n=100 (Model E)", save_path="Metrics/Graphs/pngs/preOptimisedRfMetrics.png", dpi=400)
 
 # DNN
 
-with open("DL/DNN/metricsWithDropout.json", 'r') as file:
+with open("DL/DNN/metricsWithDropout2.json", 'r') as file:
     dnn_data = json.load(file)
 
 # removing training time from json
@@ -142,7 +142,7 @@ create_simple_bar_graph(x=x_preop_dnn, y=y_preop_dnn, value_labels=True, colour=
 
 # dnn with early stopping, dropout, and extra layers
 
-with open("DL/DNN/metricsWithDropoutSeveralLayers.json", 'r') as file:
+with open("DL/DNN/metricsWithDropoutSeveralLayers2.json", 'r') as file:
     several_layers_dnn_data = json.load(file)
 
 # removing training time from json
@@ -159,7 +159,7 @@ create_simple_bar_graph(x=x_svrl_dnn, y=y_svrl_dnn, value_labels=True, colour="R
 
 # CNN
 
-with open("DL/CNN/optimizedMetricsWithDropout.json", 'r') as file:
+with open("DL/CNN/optimizedMetricsWithDropoutAndEarlyStopping2.json", 'r') as file:
     cnn_data = json.load(file)
 
 # removing training time from json
@@ -193,7 +193,7 @@ create_simple_bar_graph(x=x_preop_cnn, y=y_preop_cnn, value_labels=True, colour=
 
 # CNN with early stopping
 
-with open("DL/CNN/metricsWithEarlyStopping.json", 'r') as file:
+with open("DL/CNN/optimizedMetricsWithEarlyStopping2.json", 'r') as file:
     early_stopping_cnn_data = json.load(file)
 
 # removing training time from json
@@ -211,8 +211,8 @@ create_simple_bar_graph(x=x_es_cnn, y=y_es_cnn, value_labels=True, colour="Red",
 # Training Times graph
 
 training_times = {
-    "A" : linear_svc_training_time_data,
-    "B" : linear_kernel_training_time_data,
+    "A" : linear_kernel_training_time_data,
+    "B" : linear_svc_training_time_data,
     "C" : poly_kernel_training_time_data,
     "D" : rbf_kernel_training_time_data,
     "E" : pre_optimised_rf_training_time_data,
@@ -221,8 +221,8 @@ training_times = {
     "H" : dnn_training_time_data,
     "I" : several_layers_dnn_training_time_data,
     "J" : pre_optimised_cnn_training_time_data,
-    "K" : cnn_training_time_data,
-    "L" : early_stopping_cnn_training_time_data
+    "K" : early_stopping_cnn_training_time_data,
+    "L" : cnn_training_time_data
 }
 
 values_times = list(training_times.values())
@@ -230,7 +230,7 @@ values_times = list(training_times.values())
 x_times = list(training_times.keys())
 y_times = [round(value, 1) for value in values_times]
 
-create_simple_bar_graph(x=x_times, y=y_times, value_labels=True, colour="Blue", title="All Training Times (seconds)", save_path="Metrics/Graphs/pngs/allTrainingTimesMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_times, y=y_times, value_labels=True, colour="Blue", title="All Training Times (seconds)", save_path="Metrics/Graphs/pngs/Times/allTrainingTimesMetrics.png", dpi=400)
 
 # Pre Optimised Training Times graph
 
@@ -246,7 +246,7 @@ pre_optimised_values_times = list(pre_op_training_times.values())
 x_preop_times = list(pre_op_training_times.keys())
 y_preop_times = [round(value, 2) for value in pre_optimised_values_times]
 
-create_simple_bar_graph(x=x_preop_times, y=y_preop_times, value_labels=True, colour="Blue", title="Pre-Optimised Training Times (seconds)", save_path="Metrics/Graphs/pngs/preOptimisedTrainingTimesMetrics.png", dpi=400)
+create_simple_bar_graph(x=x_preop_times, y=y_preop_times, value_labels=True, colour="Blue", title="Pre-Optimised Training Times (seconds)", save_path="Metrics/Graphs/pngs/Times/preOptimisedTrainingTimesMetrics.png", dpi=400)
 
 # Fastest Training Times
 
@@ -259,7 +259,67 @@ fastest_training_times = {
 
 fastest_training_times_values = list(fastest_training_times.values())
 
-x_fastest_times = list(pre_op_training_times.keys())
+x_fastest_times = list(fastest_training_times.keys())
 y_fastest_times = [round(value, 2) for value in fastest_training_times_values]
 
-create_simple_bar_graph(x=x_fastest_times, y=y_fastest_times, value_labels=True, colour="Blue", title="Fastest Training Times (seconds)", save_path="Metrics/Graphs/pngs/fastestTrainingTimes.png", dpi=400)
+create_simple_bar_graph(x=x_fastest_times, y=y_fastest_times, value_labels=True, colour="Blue", title="Fastest Training Times (seconds)", save_path="Metrics/Graphs/pngs/Times/fastestTrainingTimes.png", dpi=400)
+
+# SVM training times
+
+svm_training_times = {
+    "Model A" : linear_kernel_training_time_data,
+    "Model B" : linear_svc_training_time_data,
+    "Model C" : poly_kernel_training_time_data,
+    "Model D" : rbf_kernel_training_time_data
+}
+
+svm_training_times_values = list(svm_training_times.values())
+
+x_svm_training_times = list(svm_training_times.keys())
+y_svm_training_times = [round(value, 2) for value in svm_training_times_values]
+
+create_simple_bar_graph(x=x_svm_training_times, y=y_svm_training_times, value_labels=True, colour="Blue", title="SVM Training Times (seconds)", save_path="Metrics/Graphs/pngs/Times/svmTrainingTimes", dpi=400)
+
+# RF training times
+
+rf_training_times = {
+    "Model E" : pre_optimised_rf_training_time_data,
+    "Model F" : rf_training_time_data
+}
+
+rf_training_times_values = list(rf_training_times.values())
+
+x_rf_training_times = list(rf_training_times.keys())
+y_rf_training_times = [round(value, 2) for value in rf_training_times_values]
+
+create_simple_bar_graph(x=x_rf_training_times, y=y_rf_training_times, value_labels=True, colour="Blue", title="RF Training Times (seconds)", save_path="Metrics/Graphs/pngs/Times/rfTrainingTimes", dpi=400)
+
+# DNN training times
+
+dnn_training_times = {
+    "Model G" : pre_optimised_dnn_training_time_data,
+    "Model H" : dnn_training_time_data,
+    "Model I" : several_layers_dnn_training_time_data
+}
+
+dnn_training_times_values = list(dnn_training_times.values())
+
+x_dnn_training_times = list(dnn_training_times.keys())
+y_dnn_training_times = [round(value, 2) for value in dnn_training_times_values]
+
+create_simple_bar_graph(x=x_dnn_training_times, y=y_dnn_training_times, value_labels=True, colour="Blue", title="DNN Training Times (seconds)", save_path="Metrics/Graphs/pngs/Times/dnnTrainingTimes", dpi=400)
+
+# CNN training times
+
+cnn_training_times = {
+    "Model J" : pre_optimised_cnn_training_time_data,
+    "Model K" : early_stopping_cnn_training_time_data,
+    "Model L" : cnn_training_time_data
+}
+
+cnn_training_times_values = list(cnn_training_times.values())
+
+x_cnn_training_times = list(cnn_training_times.keys())
+y_cnn_training_times = [round(value, 2) for value in cnn_training_times_values]
+
+create_simple_bar_graph(x=x_cnn_training_times, y=y_cnn_training_times, value_labels=True, colour="Blue", title="CNN Training Times (seconds)", save_path="Metrics/Graphs/pngs/Times/cnnTrainingTimes", dpi=400)
